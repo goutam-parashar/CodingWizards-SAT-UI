@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+ 
+
 @Component({
   selector: 'app-manager-panel',
   templateUrl: './manager-panel.component.html',
@@ -7,23 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagerPanelComponent implements OnInit {
 
+  isAllocate = false;
+  isView=true;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+  
   seatList: Seat[] =[  
-    {number:1, alloted: "true", selected: "false"},{number:2,alloted: "true",selected: "false"},
-    {number:3,alloted: "true",selected: "false"},{number:4,alloted: "true",selected: "false"},
-    {number:5,alloted: "false",selected: "false"},{number:6,alloted: "false",selected: "false"},
-    {number:7,alloted: "false",selected: "false"},{number:8,alloted: "false",selected: "false"}
+    {number:1, alloted: "true", selected: false},{number:2,alloted: "true",selected: false},
+    {number:3,alloted: "true",selected: false},{number:4,alloted: "true",selected: false},
+    {number:5,alloted: "false",selected: false},{number:6,alloted: "false",selected: false},
+    {number:7,alloted: "false",selected: false},{number:8,alloted: "false",selected: false}
 
   ];
   rowList : Row[] =[
-   { seatList :this.seatList},
-   { seatList :this.seatList},
-   { seatList :this.seatList},
-   { seatList :this.seatList},
-   { seatList :this.seatList}
+   { rowNo:1,seatList :this.seatList},
+   { rowNo:2,seatList :this.seatList},
+   { rowNo:3,seatList :this.seatList},
+   { rowNo:4,seatList :this.seatList},
+   { rowNo:5,seatList :this.seatList}
   ];
 
   wingList : Wing[] = [
@@ -55,21 +61,35 @@ export class ManagerPanelComponent implements OnInit {
   this.selectedDuration=duration.value;
   }
 
-  onSeatClick(obj_ : any, seat: Seat){
-    if(obj_.srcElement.className.indexOf('seat occupied')==-1 && obj_.srcElement.className.indexOf('seat')!=-1){
-    obj_.srcElement.className='seat selected';
-    seat.selected = "true";
-    }
+  onSeatClick(obj_ : any, seat: Seat, row:Row){
+
+      console.log(obj_.srcElement.className)
+      if(obj_.srcElement.className=='seat selected'){
+        obj_.srcElement.className='seat'
+      }
+      else{
+        obj_.srcElement.className='seat selected';
+      }
+    seat.selected =! seat.selected;
 
     this.seatList.forEach(function (seat : Seat) {
-      if(seat.selected=="true"){
+      if(seat.selected==true){
       console.log(seat.number);
+      // console.log('id : ' + row.rowNo+seat.number )
+      
+      // console.log(row)
       }
+
+
     });
   }
    
 }
 
+  // onBookClick(){
+  //   const isAllocate =! isAllocate;
+  //   isView=true;
+  // }
 
 interface User{
   name : string;
@@ -79,12 +99,12 @@ interface User{
 interface Seat {  
   number: number;  
   alloted : string;
-  selected : string;
+  selected : boolean;
 }  
 
 
 interface Row { 
-  // rowNo : number;
+  rowNo : number;
   // wingNo : number; 
   seatList: Seat[];  
 } 
@@ -94,3 +114,8 @@ interface Wing {
   wingName : string;
   rowList: Row[];  
 } 
+
+function onBookClick() {
+  throw new Error('Function not implemented.');
+}
+

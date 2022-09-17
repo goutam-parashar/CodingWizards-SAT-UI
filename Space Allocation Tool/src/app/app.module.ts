@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +23,8 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,
-    MatInputModule, FormsModule
+    MatInputModule, FormsModule,
+    
     
   ],
   providers: [

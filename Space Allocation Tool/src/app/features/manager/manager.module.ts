@@ -11,10 +11,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {  MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS  } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
-    ManagerPanelComponent
+    ManagerPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +28,7 @@ import { MatInputModule } from '@angular/material/input';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     ReactiveFormsModule
     
     

@@ -11,7 +11,9 @@ const routes: Routes = [
     path: '',
     redirectTo: '',
     pathMatch: 'full'
-  }
+  },
+  { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule) },
+  { path: 'request', loadChildren: () => import('./features/request/request.module').then(m => m.RequestModule) }
 ];
 
 @NgModule({

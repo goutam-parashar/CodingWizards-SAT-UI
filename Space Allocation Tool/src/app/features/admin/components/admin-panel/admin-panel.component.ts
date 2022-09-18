@@ -17,6 +17,12 @@ export interface Department{
   name : string;
 }
 
+
+export interface AllocationData {
+  division: string;
+  floorwiseData: FloorWiseData;
+  }
+
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -25,7 +31,7 @@ export interface Department{
 export class AdminPanelComponent implements OnInit {
 
   displayedColumns: string[] = ['floorId', 'floorName','wingId', 'wingName','seatStartNo', 'seatEndNo'];
-  departmentAllocationData : any;
+  departmentAllocationData: any;
 
   deptList : Department[]=[{id : '1', name : 'Department 1'},{id : '2', name : 'Department 2'},{id : '3', name : 'Department 3'}];
   selectedDept : string='';
@@ -46,7 +52,12 @@ export class AdminPanelComponent implements OnInit {
   }
 
   submitAllocation(){
-    this.adminService.submitDepartmentAllocation(this.departmentAllocationData)
+    let dep : string= 'DivisionA';
+    let requestData={
+      "division" : this.selectedDept,
+       "data" : this.departmentAllocationData
+    }
+    this.adminService.submitDepartmentAllocation(requestData, dep)
         .subscribe((response : any)=> console.log(response));
   }
 }

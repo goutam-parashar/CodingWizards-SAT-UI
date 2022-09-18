@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManagerService } from '../../manager.service';
 
 
 
@@ -12,9 +13,11 @@ export class ManagerPanelComponent implements OnInit {
   isAllocate = false;
   isView = true;
 
-  constructor() { }
+  constructor(private managerService : ManagerService) { }
 
   ngOnInit(): void {
+    this.managerService.getAvailableSeats("1")
+     .subscribe((response)=>console.log(response));
   }
 
   seatList: Seat[] = [

@@ -12,6 +12,7 @@ import {  MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS  } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { ManagerService } from './manager.service';
 @NgModule({
   declarations: [
     ManagerPanelComponent,
@@ -34,6 +35,7 @@ import {MatButtonModule} from '@angular/material/button';
     
   ],
   providers: [
+    ManagerService,
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}]
 })
 export class ManagerModule { }

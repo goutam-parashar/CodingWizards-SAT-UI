@@ -6,14 +6,17 @@ import { FloorWiseData } from './components/admin-panel/admin-panel.component';
 export class AdminService {
   constructor(private http: HttpClient) { }
 
-  configUrl = 'assets/adminSearch.json';
+  configUrl = 'http://localhost:8080/floorplan';
+
+  // submitDeptAllocationUrl = 'http://localhost:8080/allocate';
 
 getConfig(departmentId : any) {
   return this.http.get<FloorWiseData>(this.configUrl);
 }
 
-submitDepartmentAllocation(dataObj : FloorWiseData[]){
-  return this.http.post<any>(this.configUrl, dataObj);
+submitDepartmentAllocation(dataObj : any, division: string){
+  let submitDeptAllocationUrl = 'http://localhost:8080/allocate?division='+division;
+  return this.http.post<any>(submitDeptAllocationUrl, dataObj);
 }
 
 }

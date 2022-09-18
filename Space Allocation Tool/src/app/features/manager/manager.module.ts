@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ManagerPanelComponent } from './components/manager-panel/manager-panel.component';
 import { ManagerRoutingModule } from './manager-routing.module';
 import {MatRadioModule} from '@angular/material/radio';
@@ -35,7 +35,7 @@ import { ManagerService } from './manager.service';
     
   ],
   providers: [
-    ManagerService,
+    ManagerService,DatePipe,
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}]
 })
 export class ManagerModule { }

@@ -9,8 +9,8 @@ export class ManagerService {
 
   // submitDeptAllocationUrl = 'http://localhost:8080/allocate';
 
-getAvailableSeats(userId : any) {
-    let configUrl = 'http://localhost:8080/myAvailableSeats?id='+userId;
+getAvailableSeats(userId : any, dateSelected : any) {
+    let configUrl = 'http://localhost:8080/myAvailableSeats?id='+userId+'&dateSelected='+dateSelected;
   return this.http.get<any>(configUrl);
 }
 

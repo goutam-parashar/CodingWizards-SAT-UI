@@ -7,23 +7,25 @@
     </div>
     <mat-form-field appearance="fill">
       <mat-label>Choose Date</mat-label>
-      <input matInput [matDatepicker]="Date">
+      <input matInput [matDatepicker]="Date" (dateChange)="dateChanged($event)">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
-      <mat-datepicker #Date></mat-datepicker>
+      <mat-datepicker #Date  ></mat-datepicker>
     </mat-form-field>
+
+    <div >
+      <button mat-raised-button color="accent" (click)="viewAllocationClicked()">View
+        Allocation</button>
+        <!--  -->
+    </div>
     
   </div>
-  <div *ngIf="isAllocate">
-    <button mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">View
-      Allocation</button>
-      <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">Submit</button>
-  </div>
+  
   <div style="margin-top:2rem;">
-    <mat-label>Select Floor : </mat-label>
-    <mat-radio-button value="1">Floor 1</mat-radio-button>
-    <mat-radio-button value="2">Floor 2</mat-radio-button>
-
+     Floor  
+    <div style="float: left;" *ngFor="let f of floorList">
+    <mat-radio-button [value]="f" (change)="floorSelected($event)">{{f}}</mat-radio-button>
+  </div>
   </div>
 
   <div style="margin-top:2rem;" *ngIf="isAllocate">
@@ -100,16 +102,16 @@
   <div>
 
     <div style="margin-top:2rem;">
-      <div *ngFor="let wing of wingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;align-items: center; ">
+      <div *ngFor="let wing of selectedWingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;align-items: center; ">
 
-        <div class="container">{{wing.wingName}}
+        <div class="container">{{wing.wingNum}}
           <div class="row" *ngFor=" let row of wing.rowList">
             <div style="margin-left: auto;
             margin-right: auto;" class="row" *ngFor=" let seat of row.seatList">
-              <div ng-attr-id="row.rowNo+seat.number" *ngIf="seat.alloted == 'false'" class="seat"
+              <div  *ngIf="seat.status != 'allocated'" class="seat occupied"
                 (click)="onSeatClick($event, seat,row)"></div>
-              <div *ngIf="seat.alloted == 'true'" class="seat occupied"></div>
-              <!-- <div *ngIf="seat.alloted == 'false' && seat.selected == 'true'" class="seat selected"></div> -->
+              <!-- <div  class="seat occupied"></div> -->
+              <div *ngIf="seat.status == 'allocated'" class="seat"></div>
 
             </div>
           </div>

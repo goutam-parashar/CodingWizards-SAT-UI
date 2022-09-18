@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../admin.service';
 
@@ -35,7 +36,11 @@ export class AdminPanelComponent implements OnInit {
 
   deptList : Department[]=[{id : '1', name : 'Department 1'},{id : '2', name : 'Department 2'},{id : '3', name : 'Department 3'}];
   selectedDept : string='';
-  constructor(private adminService : AdminService) { }
+  selection = new SelectionModel<any>(true, []);
+constructor(private adminService : AdminService)
+{
+  this.selection.clear();
+}
 
   ngOnInit(): void {
    

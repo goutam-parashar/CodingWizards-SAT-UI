@@ -1,6 +1,10 @@
 <div style="padding:2rem ">
-  
-  <div  *ngIf="isView"> 
+
+  <div *ngIf="isView">
+    <div>
+      <button style="margin-bottom: 2rem;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">Book
+        Seats</button>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Choose Date</mat-label>
       <input matInput [matDatepicker]="Date">
@@ -8,12 +12,14 @@
       <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
       <mat-datepicker #Date></mat-datepicker>
     </mat-form-field>
-    <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate" >Book Seats</button>
+    
   </div>
   <div *ngIf="isAllocate">
-    <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate" >View Allocation</button>
+    <button mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">View
+      Allocation</button>
+      <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">Submit</button>
   </div>
-  <div style="margin-top:2rem;"> 
+  <div style="margin-top:2rem;">
     <mat-label>Select Floor : </mat-label>
     <mat-radio-button value="1">Floor 1</mat-radio-button>
     <mat-radio-button value="2">Floor 2</mat-radio-button>
@@ -24,7 +30,7 @@
     <div>
 
       <mat-form-field appearance="fill">
-        <mat-label  >Select Subordinate:</mat-label>
+        <mat-label>Select Subordinate:</mat-label>
         <mat-select (selectionChange)="onSelect($event)">
           <mat-option *ngFor="let subordiante of subordinateList" [value]="subordiante.id">
             {{subordiante.name}}
@@ -93,17 +99,22 @@
   </div>
   <div>
 
-    <div  *ngFor="let wing of wingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;margin-top:2rem;">
+    <div style="margin-top:2rem;">
+      <div *ngFor="let wing of wingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;align-items: center; ">
 
-      <div class="container">{{wing.wingName}}
-        <div class="row" *ngFor=" let row of wing.rowList">
-          <div class="row" *ngFor=" let seat of row.seatList">
-            <div ng-attr-id="row.rowNo+seat.number" *ngIf="seat.alloted == 'false'" class="seat" (click)="onSeatClick($event, seat,row)"></div>
-            <div *ngIf="seat.alloted == 'true'" class="seat occupied"></div>
-            <!-- <div *ngIf="seat.alloted == 'false' && seat.selected == 'true'" class="seat selected"></div> -->
-            
+        <div class="container">{{wing.wingName}}
+          <div class="row" *ngFor=" let row of wing.rowList">
+            <div style="margin-left: auto;
+            margin-right: auto;" class="row" *ngFor=" let seat of row.seatList">
+              <div ng-attr-id="row.rowNo+seat.number" *ngIf="seat.alloted == 'false'" class="seat"
+                (click)="onSeatClick($event, seat,row)"></div>
+              <div *ngIf="seat.alloted == 'true'" class="seat occupied"></div>
+              <!-- <div *ngIf="seat.alloted == 'false' && seat.selected == 'true'" class="seat selected"></div> -->
+
+            </div>
           </div>
         </div>
+
       </div>
 
     </div>

@@ -21,7 +21,8 @@ export class ManagerPanelComponent implements OnInit {
     { number: 1, alloted: "true", selected: false }, { number: 2, alloted: "true", selected: false },
     { number: 3, alloted: "true", selected: false }, { number: 4, alloted: "true", selected: false },
     { number: 5, alloted: "false", selected: false }, { number: 6, alloted: "false", selected: false },
-    { number: 7, alloted: "false", selected: false }, { number: 8, alloted: "false", selected: false }
+    { number: 7, alloted: "false", selected: false }, { number: 8, alloted: "false", selected: false },
+    { number: 9, alloted: "false", selected: false }, { number: 10, alloted: "false", selected: false }
 
   ];
   rowList: Row[] = [
@@ -29,7 +30,8 @@ export class ManagerPanelComponent implements OnInit {
     { rowNo: 2, seatList: this.seatList },
     { rowNo: 3, seatList: this.seatList },
     { rowNo: 4, seatList: this.seatList },
-    { rowNo: 5, seatList: this.seatList }
+    { rowNo: 5, seatList: this.seatList },
+
   ];
 
   wingList: Wing[] = [
@@ -71,36 +73,36 @@ export class ManagerPanelComponent implements OnInit {
       obj_.srcElement.className = 'seat selected';
     }
     seat.selected = !seat.selected;
-    let cnt = 0;
-    let allocateS: { rowN: number; colN: number; }[] = [];
+    // let cnt = 0;
+    // let allocateS: { rowN: number; colN: number; }[] = [];
     this.seatList.forEach(function (seat: Seat) {
       if (seat.selected == true) {
         console.log(seat.number);
         console.log('id : ' + row.rowNo + seat.number)
-        cnt++;
+        // cnt++;
 
-        allocateS.push({ 'rowN': row.rowNo, 'colN': seat.number })
-        console.log(allocateS)
+        // allocateS.push({ 'rowN': row.rowNo, 'colN': seat.number })
+        // console.log(allocateS)
         // console.log(row)
       }
 
 
     });
-    if (cnt > 1) {
-      // console.log(row.sea)
-      console.log(seat)
-      allocateS = allocateS.sort(function (a, b) {
-        return a.colN - b.colN;
-      });
-      console.log(allocateS[0])
-      console.log(allocateS.slice(-1)[0])
-      this.seatList.forEach(function (seat: Seat) {
-        let n = allocateS[0].colN;
-        // for ()
-        allocateS.slice(-1)[0]
-      });
+    // if (cnt > 1) {
+    //   // console.log(row.sea)
+    //   // console.log(seat)
+    //   allocateS = allocateS.sort(function (a, b) {
+    //     return a.colN - b.colN;
+    //   });
+    //   console.log(allocateS[0])
+    //   console.log(allocateS.slice(-1)[0])
+    //   this.seatList.forEach(function (seat: Seat) {
+    //     let n = allocateS[0].colN;
+    //     // for ()
+    //     allocateS.slice(-1)[0]
+    //   });
 
-    }
+    // }
 
 
   }

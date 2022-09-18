@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../admin.service';
 
 
 
-export interface PeriodicElement {
-  division: string;
-  seats: number;
-  isEdit:boolean;
+export interface FloorWiseData {
+  floorId: string;
+  floorName: string;
+  wingId : string;
+  wingName : string;
+  seatStartNo:number;
+  seatEndNo:number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {seats: 200, division: 'Division 1',isEdit:true},
-  {seats: 250, division: 'Division 2',isEdit:true},
-  {seats: 200, division: 'Division 3',isEdit:true}
-];
+export interface Department{
+  id: string;
+  name : string;
+}
 
 @Component({
   selector: 'app-admin-panel',
@@ -21,12 +24,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AdminPanelComponent implements OnInit {
 
-  displayedColumns: string[] = ['division', 'seats'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['floorId', 'floorName','wingId', 'wingName','seatStartNo', 'seatEndNo'];
+  departmentAllocationData : any;
 
-  constructor() { }
+  deptList : Department[]=[{id : '1', name : 'Department 1'},{id : '2', name : 'Department 2'},{id : '3', name : 'Department 3'}];
+  selectedDept : string='';
+  constructor(private adminService : AdminService) { }
 
   ngOnInit(): void {
+   
   }
 
+  onSelect(event: any){
+    this.selectedDept=event.value;
+    this.showConfig(event.value);
+  }
+
+  showConfig(departmentId: any) {
+    this.adminService.getConfig(departmentId)
+      .subscribe((response : any) => this.departmentAllocationData=response.data);
+  }
+
+  submitAllocation(){
+    this.adminService.submitDepartmentAllocation(this.departmentAllocationData)
+        .subscribe((response : any)=> console.log(response));
+  }
 }

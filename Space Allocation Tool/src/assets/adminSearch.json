@@ -1,0 +1,23 @@
+{
+    "data":[
+    {"floorId": "F1", "floorName":"Floor1","wingId":"W1","wingName":"Wing 1","seatStartNo": 1,"seatEndNo":40},
+    {"floorId": "F1", "floorName":"Floor1","wingId":"W2","wingName":"Wing 2","seatStartNo": 41,"seatEndNo":80},
+    {"floorId": "F1", "floorName":"Floor1","wingId":"W2","wingName":"Wing 3","seatStartNo": 81,"seatEndNo":120},
+    {"floorId": "F1", "floorName":"Floor1","wingId":"W2","wingName":"Wing 4","seatStartNo": 121,"seatEndNo":160},
+    
+    {"floorId": "F2", "floorName":"Floor2","wingId":"W1","wingName":"Wing 1","seatStartNo": 1,"seatEndNo":40},
+    {"floorId": "F2", "floorName":"Floor2","wingId":"W2","wingName":"Wing 2","seatStartNo": 41,"seatEndNo":80},
+    {"floorId": "F2", "floorName":"Floor2","wingId":"W2","wingName":"Wing 3","seatStartNo": 81,"seatEndNo":120},
+    {"floorId": "F2", "floorName":"Floor2","wingId":"W2","wingName":"Wing 4","seatStartNo": 121,"seatEndNo":160},
+  
+    {"floorId": "F3", "floorName":"Floor3","wingId":"W1","wingName":"Wing 1","seatStartNo": 1,"seatEndNo":40},
+    {"floorId": "F3", "floorName":"Floor3","wingId":"W2","wingName":"Wing 2","seatStartNo": 41,"seatEndNo":80},
+    {"floorId": "F3", "floorName":"Floor3","wingId":"W2","wingName":"Wing 3","seatStartNo": 81,"seatEndNo":120},
+    {"floorId": "F3", "floorName":"Floor3","wingId":"W2","wingName":"Wing 4","seatStartNo": 121,"seatEndNo":165},
+  
+    {"floorId": "F4", "floorName":"Floor4","wingId":"W1","wingName":"Wing 1","seatStartNo": 1,"seatEndNo":40},
+    {"floorId": "F4", "floorName":"Floor4","wingId":"W2","wingName":"Wing 2","seatStartNo": 41,"seatEndNo":80},
+    {"floorId": "F4", "floorName":"Floor4","wingId":"W2","wingName":"Wing 3","seatStartNo": 81,"seatEndNo":120},
+    {"floorId": "F4", "floorName":"Floor4","wingId":"W2","wingName":"Wing 4","seatStartNo": 121,"seatEndNo":165}
+    ]
+}

@@ -1,6 +1,6 @@
-<div>
+<div style="padding:2rem ">
   
-  <div *ngIf="isView"> 
+  <div  *ngIf="isView"> 
     <mat-form-field appearance="fill">
       <mat-label>Choose Date</mat-label>
       <input matInput [matDatepicker]="Date">
@@ -8,23 +8,23 @@
       <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
       <mat-datepicker #Date></mat-datepicker>
     </mat-form-field>
-    <button style="float: right;" mat-raised-button color="primary" (click)="isView =!isView;isAllocate=!isAllocate" >Book Seats</button>
+    <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate" >Book Seats</button>
   </div>
   <div *ngIf="isAllocate">
-    <button style="float: right;" mat-raised-button color="primary" (click)="isView =!isView;isAllocate=!isAllocate" >View Allocation</button>
+    <button style="float: right;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate" >View Allocation</button>
   </div>
-  <div>
+  <div style="margin-top:2rem;"> 
     <mat-label>Select Floor : </mat-label>
     <mat-radio-button value="1">Floor 1</mat-radio-button>
     <mat-radio-button value="2">Floor 2</mat-radio-button>
 
   </div>
 
-  <div *ngIf="isAllocate">
+  <div style="margin-top:2rem;" *ngIf="isAllocate">
     <div>
 
       <mat-form-field appearance="fill">
-        <mat-label>Select Subordinate:</mat-label>
+        <mat-label  >Select Subordinate:</mat-label>
         <mat-select (selectionChange)="onSelect($event)">
           <mat-option *ngFor="let subordiante of subordinateList" [value]="subordiante.id">
             {{subordiante.name}}
@@ -32,7 +32,7 @@
         </mat-select>
       </mat-form-field>
 
-      <label>{{seatsToAllocate}}</label>
+      <label style="margin-left: 2rem;">{{seatsToAllocate}}</label>
     </div>
 
     <div class="row">
@@ -45,7 +45,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div *ngIf="selectedDuration=='Monthly'">
+      <div style="margin-top: 1rem;" *ngIf="selectedDuration=='Monthly'">
         <mat-checkbox class="example-margin">Jan</mat-checkbox>
         <mat-checkbox class="example-margin">Feb</mat-checkbox>
         <mat-checkbox class="example-margin">Mar</mat-checkbox>
@@ -61,7 +61,7 @@
         <mat-checkbox class="example-margin">Dec</mat-checkbox>
       </div>
 
-      <div *ngIf="selectedDuration=='Weekly'">
+      <div style="margin-top: 1rem;" *ngIf="selectedDuration=='Weekly'">
         <mat-checkbox class="example-margin">Mon</mat-checkbox>
         <mat-checkbox class="example-margin">Tue</mat-checkbox>
         <mat-checkbox class="example-margin">Wed</mat-checkbox>
@@ -72,7 +72,7 @@
       </div>
 
 
-      <div *ngIf="selectedDuration=='Custom'">
+      <div style="margin-left:2rem;" *ngIf="selectedDuration=='Custom'">
         <mat-form-field appearance="fill">
           <mat-label>Choose Start Date</mat-label>
           <input matInput [matDatepicker]="startDate">
@@ -81,7 +81,7 @@
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field style="margin-left:2rem;" appearance="fill">
           <mat-label>Choose End Date</mat-label>
           <input matInput [matDatepicker]="endDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
@@ -93,7 +93,7 @@
   </div>
   <div>
 
-    <div *ngFor="let wing of wingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;">
+    <div  *ngFor="let wing of wingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;margin-top:2rem;">
 
       <div class="container">{{wing.wingName}}
         <div class="row" *ngFor=" let row of wing.rowList">

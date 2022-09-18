@@ -11,6 +11,9 @@ import {BrowserAnimationsModule} from
     '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -24,6 +27,8 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     HttpClientModule,
     MatInputModule, FormsModule,
+    MatButtonModule,
+    MatToolbarModule
     
     
   ],

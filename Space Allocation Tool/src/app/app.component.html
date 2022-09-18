@@ -1,5 +1,13 @@
 
-<button type="button" routerLink="/manager">Manager</button>
-<button type="button" routerLink="/admin">Admin</button>
-<button type="button" routerLink="/request">Request</button>
+<mat-toolbar color="primary">
+    
+    <span>Seat Allocatin Tool</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        
+      </button>
+    <button mat-raised-button color="primary" type="button" routerLink="/manager">Manager</button>
+    <button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" routerLink="/admin">Admin</button>
+<button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" routerLink="/request">Request</button>
+  </mat-toolbar>
 <router-outlet></router-outlet>

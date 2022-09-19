@@ -9,12 +9,13 @@ import { AppService } from './app.service';
 export class AppComponent {
   title = 'test-prj';
   showLogin= true;
-
+  loggedInUser="";
   constructor(private appService : AppService) { }
   userIdEntered(userId: any){
     this.showLogin=false;
     console.log(userId);
     this.appService.userId=userId;
+    this.loggedInUser=userId;
   }
 
   loggedOut(){

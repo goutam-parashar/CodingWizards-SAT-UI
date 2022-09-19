@@ -84,7 +84,7 @@ this.subordinateList= response;
     
     this.managerService.submitSeatAllocation(requestBody)
     .subscribe((response: any)=>{
-      console.log(response);
+      alert("Space Allocated Successfully.")
     });
   }
 

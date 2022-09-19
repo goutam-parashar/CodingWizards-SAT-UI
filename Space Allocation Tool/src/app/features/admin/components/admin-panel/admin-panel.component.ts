@@ -53,7 +53,7 @@ constructor(private adminService : AdminService)
        "data" : this.selection.selected
     }
     this.adminService.submitDepartmentAllocation(requestData, this.selectedDept)
-        .subscribe((response : any)=> console.log(response));
+        .subscribe((response : any)=> alert("Department Space Allocated Successfully."));
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;

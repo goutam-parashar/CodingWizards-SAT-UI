@@ -14,9 +14,18 @@ getAvailableSeats(userId : any, dateSelected : any) {
   return this.http.get<any>(configUrl);
 }
 
-// submitDepartmentAllocation(dataObj : any, division: string){
-//   let submitDeptAllocationUrl = 'http://localhost:8080/allocate?division='+division;
-//   return this.http.post<any>(submitDeptAllocationUrl, dataObj);
-// }
+getSubordinates(id : any) {
+    let configUrl = 'http://localhost:8080/subordinates?id='+id;
+  return this.http.get<any>(configUrl);
+}
+
+getSubordinatesSeats(id : any) {
+    let configUrl = 'http://localhost:8080/subordinates/count?id='+id;
+  return this.http.get<any>(configUrl);
+ }
+submitSeatAllocation(dataObj : any){
+  let submitDeptAllocationUrl = 'http://localhost:8080/manager/allocate/seat';
+  return this.http.post<any>(submitDeptAllocationUrl, dataObj);
+}
 
 }

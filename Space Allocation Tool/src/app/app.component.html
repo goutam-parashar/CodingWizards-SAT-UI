@@ -1,13 +1,31 @@
+<div *ngIf="showLogin else showApp;">
+<mat-toolbar  color="primary">
+  <span>Space Allocation Tool</span>
 
+</mat-toolbar>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Please Enter User ID : </mat-label>
+  <input matInput placeholder="Please enter" #userId>
+</mat-form-field>
+         
+<button  mat-raised-button color="primary" (click)="userIdEntered(userId.value)">Login</button>
+  
+</div>
+<ng-template #showApp>
 <mat-toolbar color="primary">
-  <button mat-raised-button color="primary" type="button" routerLink="/manager">Manager</button>
   <button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" routerLink="/admin">Admin</button>
-<button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" routerLink="/request">Request</button>
+
+  <button mat-raised-button color="primary" type="button" routerLink="/manager">Manager</button>
+  <button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" routerLink="/request">Request</button>
     
     <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         
       </button>
       <span>Space Allocation Tool</span>
+      <button mat-raised-button color="primary" style="margin-left: 2rem;" type="button" (click)="loggedOut()">Logout</button>
+
   </mat-toolbar>
+</ng-template>
 <router-outlet></router-outlet>

@@ -15,15 +15,29 @@
 
   </div>
 
-  <button style="float: right;" mat-raised-button color="primary" (click)="submitAllocation()">Submit Allocation</button> 
+  <button style="float: right;" mat-raised-button color="primary" (click)="submitAllocation()">Submit Allocation</button>
 
   <div>
-   
+
     <table mat-table [dataSource]="departmentAllocationData" class="mat-elevation-z8">
-      
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="floorName">
         <th mat-header-cell *matHeaderCellDef> Floor Name </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element.floorName}} </td>
         <td>
       </td>
@@ -31,7 +45,7 @@
 
       <ng-container matColumnDef="floorId">
         <th mat-header-cell *matHeaderCellDef> Floor Id</th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element.floorId}} </td>
         <td>
       </td>
@@ -39,7 +53,7 @@
 
       <ng-container matColumnDef="wingName">
         <th mat-header-cell *matHeaderCellDef> Wing Name</th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element.wingName}} </td>
         <td>
       </td>
@@ -47,7 +61,7 @@
 
       <ng-container matColumnDef="wingId">
         <th mat-header-cell *matHeaderCellDef> Wing Id </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element.wingId}} </td>
         <td>
       </td>
@@ -56,7 +70,7 @@
 
       <ng-container matColumnDef="seatStartNo">
         <th mat-header-cell *matHeaderCellDef> Seat Start # </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           {{element.seatStartNo}} </td>
         <td>
       </td>
@@ -64,7 +78,7 @@
 
       <ng-container matColumnDef="seatEndNo">
         <th mat-header-cell *matHeaderCellDef> Seat End # </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           <div>
             <input type="number" [(ngModel)]="element.seatEndNo" class="form-control" min="1" max="element.seatEndNo"/>
         </div>
@@ -72,7 +86,7 @@
         <td>
       </td>
       </ng-container>
-    
+
       <ng-container matColumnDef="seats"  >
         <th mat-header-cell *matHeaderCellDef> Seats </th>
         <td mat-cell *matCellDef="let element" >
@@ -83,23 +97,22 @@
               {{element.seats}}
           </div> </td>
       </ng-container>
-    
-      
-      
-    
+
+
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
-  
-    
-  
-  
-  
-  
+
+
+
+
+
+
   </div>
 
 
 
-  
-  
-  
+
+

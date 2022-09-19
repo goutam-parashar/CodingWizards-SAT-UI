@@ -1,8 +1,6 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../admin.service';
-
-
+import {SelectionModel} from '@angular/cdk/collections';
 
 export interface FloorWiseData {
   floorId: string;
@@ -18,12 +16,6 @@ export interface Department{
   name : string;
 }
 
-
-export interface AllocationData {
-  division: string;
-  floorwiseData: FloorWiseData;
-  }
-
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -31,8 +23,8 @@ export interface AllocationData {
 })
 export class AdminPanelComponent implements OnInit {
 
-  displayedColumns: string[] = ['floorId', 'floorName','wingId', 'wingName','seatStartNo', 'seatEndNo'];
-  departmentAllocationData: any;
+  displayedColumns: string[] = ['select','floorId', 'floorName','wingId', 'wingName','seatStartNo', 'seatEndNo'];
+  departmentAllocationData : any;
 
   deptList : Department[]=[{id : '1', name : 'Department 1'},{id : '2', name : 'Department 2'},{id : '3', name : 'Department 3'}];
   selectedDept : string='';
@@ -43,7 +35,7 @@ constructor(private adminService : AdminService)
 }
 
   ngOnInit(): void {
-   
+
   }
 
   onSelect(event: any){
@@ -57,12 +49,21 @@ constructor(private adminService : AdminService)
   }
 
   submitAllocation(){
-    let dep : string= 'DivisionA';
     let requestData={
-      "division" : this.selectedDept,
-       "data" : this.departmentAllocationData
+       "data" : this.selection.selected
     }
-    this.adminService.submitDepartmentAllocation(requestData, dep)
+    this.adminService.submitDepartmentAllocation(requestData, this.selectedDept)
         .subscribe((response : any)=> console.log(response));
   }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.deptList.length;
+    return numSelected === numRows;
+  }
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.deptList.forEach(row => this.selection.select(row));
+  }
+
 }

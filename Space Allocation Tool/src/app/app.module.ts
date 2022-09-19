@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AppService } from './app.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     
     
   ],
-  providers: [
+  providers: [AppService,
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
   bootstrap: [AppComponent]
 })

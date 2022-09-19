@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/app.service';
 import { ManagerService } from '../../manager.service';
 
 
@@ -14,50 +15,23 @@ export class ManagerPanelComponent implements OnInit {
   isAllocate = false;
   isView = true;
 
-  constructor(private managerService : ManagerService, private datepipe : DatePipe) { }
+  constructor(private managerService : ManagerService, private datepipe : DatePipe, private appService : AppService) { }
   floorList : any []=[];
   selectedWingList : Wing[]=[];
+  targetWingList : Seat[]=[];
   wingListF1 : Wing[]= []; 
   wingListF2 : Wing[]= [];
   wingListF3 : Wing[]= [];
   wingListF4 : Wing[]= [];
+  selectedFloorId:string='';
+  selectedSubordinateId:string='';
+  startDateSelected: any;
+  endDateSelected: any;
   ngOnInit(): void {
    
   }
 
-  seatList: Seat[] = [
-    // { number: 1, alloted: "true", selected: false }, { number: 2, alloted: "true", selected: false },
-    // { number: 3, alloted: "true", selected: false }, { number: 4, alloted: "true", selected: false },
-    // { number: 5, alloted: "false", selected: false }, { number: 6, alloted: "false", selected: false },
-    // { number: 7, alloted: "false", selected: false }, { number: 8, alloted: "false", selected: false },
-    // { number: 9, alloted: "false", selected: false }, { number: 10, alloted: "false", selected: false }
-
-  ];
-  rowList: Row[] = [
-    // { rowNo: 1, seatList: this.seatList },
-    // { rowNo: 2, seatList: this.seatList },
-    // { rowNo: 3, seatList: this.seatList },
-    // { rowNo: 4, seatList: this.seatList },
-    // { rowNo: 5, seatList: this.seatList },
-
-  ];
-
-  // wingList: Wing[] = [
-  //   { wingName: 'Wing A', rowList: this.rowList },
-  //   { wingName: 'Wing B', rowList: this.rowList },
-  //   { wingName: 'Wing C', rowList: this.rowList },
-  //   { wingName: 'Wing D', rowList: this.rowList }
-  // ];
-
-
-
-  // subordinateList: User[] = [{name :'Sub1',id: '1'},{name :'Sub2',id: '2'}] ; 
-
-  subordinateList: User[] = [
-    { name: 'Sub1', id: '1' },
-    { name: 'Sub2', id: '2' },
-    { name: 'Sub3', id: '3' }
-  ];
+  subordinateList: User[] = [];
 
   seatsToAllocate: string = '';
 
@@ -65,13 +39,57 @@ export class ManagerPanelComponent implements OnInit {
   selectedDuration: string = '';
   dateSelected : any;
   onSelect(item: any) {
-    // console.log(item);
-    this.seatsToAllocate = 'Seats to Allocate : ' + 30;
+    console.log(item);
+    this.selectedSubordinateId=item.value;
+    this.managerService.getSubordinatesSeats(item.value)
+    .subscribe((response: any)=>{
+      this.seatsToAllocate = 'Seats to Allocate : ' + response*0.6;
+    });
+    
+  }
+
+  seatBtnClicked(){
+    this.isView =false; this.isAllocate=true;
+    
+    
+    this.managerService.getSubordinates(this.appService.userId)
+    .subscribe((response: any)=>{
+console.log(response);
+this.subordinateList= response;
+    });
   }
 
   viewAllocationClicked(){
-    // this.isView =!this.isView; this.isAllocate=!this.isAllocate;
-    this.managerService.getAvailableSeats("1",this.dateSelected)
+    this.isView =true; this.isAllocate=false;
+    this.floorList =[];
+  this.selectedWingList =[];
+  }
+
+  startDateChanged(dt: any){
+    this.startDateSelected= this.datepipe.transform(dt.value, 'yyyy-MM-dd');
+  }
+
+  endDateChanged(dt: any){
+    this.endDateSelected= this.datepipe.transform(dt.value, 'yyyy-MM-dd');
+  }
+
+  submitAllocationClicked(){
+    let requestBody={
+       "floorId": this.selectedFloorId,
+     "subordinateId" : this.selectedSubordinateId,
+     "startDate":this.startDateSelected,
+     "endDate": this.endDateSelected,
+     "seats":this.targetWingList
+    }
+    
+    this.managerService.submitSeatAllocation(requestBody)
+    .subscribe((response: any)=>{
+      console.log(response);
+    });
+  }
+
+  pullSeatsData(){
+    this.managerService.getAvailableSeats(this.appService.userId,this.dateSelected)
     .subscribe((response: any)=>{
        this.floorList.push(response[0].floorId);
        this.wingListF1.push(response[0].wingList[0]);
@@ -99,11 +117,12 @@ export class ManagerPanelComponent implements OnInit {
        // console.log(this.wingListF1);
     });
   }
-
   onDurationSelect(duration: any) {
     this.selectedDuration = duration.value;
+    
   }
   floorSelected(event : any){
+    this.selectedFloorId =event.value;
     if(event.value=='L1'){
       this.selectedWingList=this.wingListF1;
  this.selectedWingList=this.wingListF1;
@@ -116,58 +135,37 @@ export class ManagerPanelComponent implements OnInit {
       this.selectedWingList=this.wingListF4;
      }
 
+
   }
 
   dateChanged(event: any){
     console.log(event.value);
    this.dateSelected= this.datepipe.transform(event.value, 'yyyy-MM-dd');
-  //  let latest_date =this.datepipe.transform(this.dateSelected, 'yyyy-MM-dd');
-  //  console.log(latest_date);
+   this.pullSeatsData();
   }
-  onSeatClick(obj_: any, seat: Seat, row: Row) {
+  onSeatClick(obj_ : any, seat: Seat, row:Row){
 
-    // console.log(obj_.srcElement.className)
-    // if (obj_.srcElement.className == 'seat selected') {
-    //   obj_.srcElement.className = 'seat'
-    // }
-    // else {
-    //   obj_.srcElement.className = 'seat selected';
-    // }
-    // seat.selected = !seat.selected;
-    // // let cnt = 0;
-    // // let allocateS: { rowN: number; colN: number; }[] = [];
-    // this.seatList.forEach(function (seat: Seat) {
-    //   if (seat.selected == true) {
-    //     console.log(seat.number);
-    //     console.log('id : ' + row.rowNo + seat.number)
-    //     // cnt++;
+      console.log(obj_.srcElement.className)
+      if(obj_.srcElement.className=='seat selected'){
+        obj_.srcElement.className='seat'
+      }
+      else{
+        obj_.srcElement.className='seat selected';
+      }
+      let rowToPush= seat;
+      seat.status='allocated';
+      this.targetWingList.push(rowToPush);
+    //seat.status ="Selected";
 
-    //     // allocateS.push({ 'rowN': row.rowNo, 'colN': seat.number })
-    //     // console.log(allocateS)
-    //     // console.log(row)
+    // this.seatList.forEach(function (seat : Seat) {
+    //   if(seat.selected==true){
+    //   console.log(seat.number);
+    //   // console.log('id : ' + row.rowNo+seat.number )
+      
+    //   // console.log(row)
     //   }
-
-
-    // });
-    // if (cnt > 1) {
-    //   // console.log(row.sea)
-    //   // console.log(seat)
-    //   allocateS = allocateS.sort(function (a, b) {
-    //     return a.colN - b.colN;
-    //   });
-    //   console.log(allocateS[0])
-    //   console.log(allocateS.slice(-1)[0])
-    //   this.seatList.forEach(function (seat: Seat) {
-    //     let n = allocateS[0].colN;
-    //     // for ()
-    //     allocateS.slice(-1)[0]
-    //   });
-
-    // }
-
-
   }
-
+  
 }
 
 // onBookClick(){
@@ -176,7 +174,7 @@ export class ManagerPanelComponent implements OnInit {
 // }
 
 interface User {
-  name: string;
+  fName: string;
   id: string;
 }
 

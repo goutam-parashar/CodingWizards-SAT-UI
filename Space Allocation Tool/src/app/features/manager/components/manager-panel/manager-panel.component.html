@@ -1,10 +1,18 @@
-<div style="padding:2rem ">
+<div >
+
+  <div>
+    <button mat-raised-button color="accent" (click)="viewAllocationClicked()">View
+      Allocation</button>
+
+    <button style="margin-bottom: 2rem;" mat-raised-button color="accent" (click)="seatBtnClicked()">Book
+      Seats</button>
+             
+    <button style="float:right;" *ngIf="isAllocate" mat-raised-button color="accent" (click)="submitAllocationClicked()">Submit Allocation</button>
+  
+  </div>
 
   <div *ngIf="isView">
-    <div>
-      <button style="margin-bottom: 2rem;" mat-raised-button color="accent" (click)="isView =!isView;isAllocate=!isAllocate">Book
-        Seats</button>
-    </div>
+    
     <mat-form-field appearance="fill">
       <mat-label>Choose Date</mat-label>
       <input matInput [matDatepicker]="Date" (dateChange)="dateChanged($event)">
@@ -13,11 +21,7 @@
       <mat-datepicker #Date  ></mat-datepicker>
     </mat-form-field>
 
-    <div >
-      <button mat-raised-button color="accent" (click)="viewAllocationClicked()">View
-        Allocation</button>
-        <!--  -->
-    </div>
+    
     
   </div>
   
@@ -35,7 +39,7 @@
         <mat-label>Select Subordinate:</mat-label>
         <mat-select (selectionChange)="onSelect($event)">
           <mat-option *ngFor="let subordiante of subordinateList" [value]="subordiante.id">
-            {{subordiante.name}}
+            {{subordiante.fName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -83,7 +87,7 @@
       <div style="margin-left:2rem;" *ngIf="selectedDuration=='Custom'">
         <mat-form-field appearance="fill">
           <mat-label>Choose Start Date</mat-label>
-          <input matInput [matDatepicker]="startDate">
+          <input matInput [matDatepicker]="startDate" (dateChange)="startDateChanged($event)">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
@@ -91,7 +95,7 @@
 
         <mat-form-field style="margin-left:2rem;" appearance="fill">
           <mat-label>Choose End Date</mat-label>
-          <input matInput [matDatepicker]="endDate">
+          <input matInput [matDatepicker]="endDate" (dateChange)="endDateChanged($event)">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
@@ -100,7 +104,7 @@
     </div>
   </div>
   <div>
-
+    
     <div style="margin-top:2rem;">
       <div *ngFor="let wing of selectedWingList" style="float: left; width: 50%; height: 300px; border: 20px solid #969696;align-items: center; ">
 
@@ -109,9 +113,9 @@
             <div style="margin-left: auto;
             margin-right: auto;" class="row" *ngFor=" let seat of row.seatList">
               <div  *ngIf="seat.status != 'allocated'" class="seat occupied"
-                (click)="onSeatClick($event, seat,row)"></div>
+                ></div>
               <!-- <div  class="seat occupied"></div> -->
-              <div *ngIf="seat.status == 'allocated'" class="seat"></div>
+              <div *ngIf="seat.status == 'allocated'" class="seat" (click)="onSeatClick($event, seat,row)"></div>
 
             </div>
           </div>
@@ -120,4 +124,6 @@
       </div>
 
     </div>
+
+    
   </div>

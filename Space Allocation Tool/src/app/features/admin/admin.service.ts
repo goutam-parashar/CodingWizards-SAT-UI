@@ -15,7 +15,7 @@ getConfig(departmentId : any) {
 }
 
 submitDepartmentAllocation(dataObj : any, division: string){
-  let submitDeptAllocationUrl = 'http://localhost:8080/allocate?division='+division;
+  let submitDeptAllocationUrl = 'http://localhost:8080/allocate/division?division='+division;
   return this.http.post<any>(submitDeptAllocationUrl, dataObj);
 }
 
